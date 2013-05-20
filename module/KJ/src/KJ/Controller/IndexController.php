@@ -45,11 +45,25 @@ class IndexController extends AbstractActionController {
 		$this->getEntityManager()->persist($jcat);           
 		$this->getEntityManager()->persist($job);
 		$this->getEntityManager()->flush();
-                
+              
                 return $this->redirect()->toRoute('home/action', array(
                     'action' => 'showjob'
                 ));             			
 	}
+        public function deletejobAction()
+    {
+            echo 'ddd';
+        $post = $this->getEntityManager()->getRepository('KJ\Entity\Bjob')->find($this->params('job_id'));
+        var_dump($post);
+        if ($post) {
+            $em = $this->getEntityManager();
+            $em->remove($post);
+            $em->flush();
+            $this->flashMessenger()->addSuccessMessage('Post Deleted');
+        }
+
+        return $this->redirect()->toRoute('post');
+    }
         
         
         
