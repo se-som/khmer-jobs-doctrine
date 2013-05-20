@@ -1,0 +1,16 @@
+<form method="post" action="<?php echo $this->url('home/action', array('action' => 'createJobByForm')) ?>">
+    <fieldset>
+	<input type="text" name ="com_id" placeholder="company id…"> <br />
+	<select name="cat_id">
+		 <?php
+			foreach($categories as $c) {
+				echo '<option value=' . $c->getCatId() . '>' . $c->getCatName(). '</option>';
+			}
+		 ?>
+	</select> <br />
+	<input type="text" name="job_deadline"class="datepicker" placeholder="job deadline"><br />
+	<input type="text" name ="job_title" placeholder="job title…"> <br />
+	<textarea rows="3" name="job_description" placeholder="job description…"></textarea> <br />
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
