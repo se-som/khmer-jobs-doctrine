@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 20, 2013 at 09:54 AM
+-- Generation Time: May 17, 2013 at 08:32 AM
 -- Server version: 5.5.20
 -- PHP Version: 5.3.10
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `kmer_job`
+-- Database: `test`
 --
 
 -- --------------------------------------------------------
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `a_cover` (
   `js_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`cover_id`),
   UNIQUE KEY `js_id` (`js_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
 --
 -- Dumping data for table `a_cover`
@@ -290,27 +290,14 @@ INSERT INTO `a_jobs_seeker` (`user_id`, `js_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `b_cagtegory_subject`
---
-
-CREATE TABLE IF NOT EXISTS `b_cagtegory_subject` (
-  `cat_id` int(11) unsigned NOT NULL,
-  `sub_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`cat_id`,`sub_id`),
-  KEY `sub_id` (`sub_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `b_category`
 --
 
 CREATE TABLE IF NOT EXISTS `b_category` (
-  `cat_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_name` varchar(255) DEFAULT '',
+  `cat_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_name` varchar(250) NOT NULL,
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `b_category`
@@ -318,56 +305,53 @@ CREATE TABLE IF NOT EXISTS `b_category` (
 
 INSERT INTO `b_category` (`cat_id`, `cat_name`) VALUES
 (1, 'IT'),
-(2, 'Sale'),
-(3, 'Maketing');
+(2, 'Accounting'),
+(3, 'Maketing'),
+(4, 'Sale');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `b_job`
+-- Table structure for table `b_jobcategory`
 --
 
-CREATE TABLE IF NOT EXISTS `b_job` (
-  `job_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `job_title` varchar(255) DEFAULT '',
-  `job_deadline` varchar(250) NOT NULL,
-  `job_description` text,
-  `jcat_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`job_id`),
-  KEY `jcat_id` (`jcat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
-
---
--- Dumping data for table `b_job`
---
-
-INSERT INTO `b_job` (`job_id`, `job_title`, `job_deadline`, `job_description`, `jcat_id`) VALUES
-(19, 'ggg', '05/09/2013', 'gggg', 26),
-(24, 'ddd', '05/09/2013', 'dddd', 32);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `b_jobcagtegory`
---
-
-CREATE TABLE IF NOT EXISTS `b_jobcagtegory` (
-  `jcat_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `b_jobcategory` (
+  `com_cat_id` int(11) NOT NULL AUTO_INCREMENT,
   `com_id` int(11) NOT NULL,
-  `cat_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`jcat_id`),
+  `cat_id` int(11) NOT NULL,
+  PRIMARY KEY (`com_cat_id`),
   KEY `com_id` (`com_id`),
   KEY `cat_id` (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Dumping data for table `b_jobcagtegory`
+-- Dumping data for table `b_jobcategory`
 --
 
-INSERT INTO `b_jobcagtegory` (`jcat_id`, `com_id`, `cat_id`) VALUES
-(26, 211, 1),
-(31, 211, 1),
-(32, 218, 2);
+INSERT INTO `b_jobcategory` (`com_cat_id`, `com_id`, `cat_id`) VALUES
+(2, 211, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `b_jobs`
+--
+
+CREATE TABLE IF NOT EXISTS `b_jobs` (
+  `job_id` int(11) NOT NULL AUTO_INCREMENT,
+  `jcat_id` int(11) NOT NULL,
+  `job_deadline` varchar(100) NOT NULL,
+  `job_description` varchar(100) NOT NULL,
+  PRIMARY KEY (`job_id`),
+  KEY `jcat_id` (`jcat_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `b_jobs`
+--
+
+INSERT INTO `b_jobs` (`job_id`, `jcat_id`, `job_deadline`, `job_description`) VALUES
+(1, 2, '05/31/2013', 'Good experienc');
 
 -- --------------------------------------------------------
 
@@ -376,12 +360,24 @@ INSERT INTO `b_jobcagtegory` (`jcat_id`, `com_id`, `cat_id`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `b_percentage` (
-  `jcat_id` int(11) unsigned NOT NULL,
-  `sub_id` int(11) unsigned NOT NULL,
-  `percentage` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`jcat_id`,`sub_id`),
+  `per_id` int(11) NOT NULL AUTO_INCREMENT,
+  `sub_id` int(11) NOT NULL,
+  `com_id` int(11) NOT NULL,
+  `percentage` int(11) DEFAULT NULL,
+  PRIMARY KEY (`per_id`),
+  KEY `com_id` (`com_id`),
   KEY `sub_id` (`sub_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `b_percentage`
+--
+
+INSERT INTO `b_percentage` (`per_id`, `sub_id`, `com_id`, `percentage`) VALUES
+(1, 1, 211, 20),
+(2, 2, 211, 35),
+(3, 3, 211, 55),
+(4, 4, 211, 80);
 
 -- --------------------------------------------------------
 
@@ -390,10 +386,27 @@ CREATE TABLE IF NOT EXISTS `b_percentage` (
 --
 
 CREATE TABLE IF NOT EXISTS `b_subject` (
-  `sub_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `sub_name` varchar(255) DEFAULT '',
-  PRIMARY KEY (`sub_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `sub_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) NOT NULL,
+  `sub_name` varchar(100) NOT NULL,
+  `percentage` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sub_id`),
+  KEY `cat_id` (`cat_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `b_subject`
+--
+
+INSERT INTO `b_subject` (`sub_id`, `cat_id`, `sub_name`, `percentage`) VALUES
+(1, 1, 'JavaScript', NULL),
+(2, 1, 'HTML', NULL),
+(3, 1, 'PHP', NULL),
+(4, 1, 'Css', NULL),
+(5, 2, 'English', NULL),
+(6, 2, 'France', NULL),
+(7, 3, 'English', NULL),
+(8, 3, 'France', NULL);
 
 -- --------------------------------------------------------
 
@@ -1546,7 +1559,7 @@ CREATE TABLE IF NOT EXISTS `jobs_finder_terms` (
   KEY `idx_term_phrase` (`term`,`phrase`),
   KEY `idx_stem_phrase` (`stem`,`phrase`),
   KEY `idx_soundex_phrase` (`soundex`,`phrase`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `jobs_finder_terms`
@@ -5553,31 +5566,30 @@ ALTER TABLE `a_cv_skill`
   ADD CONSTRAINT `a_cv_skill_ibfk_1` FOREIGN KEY (`cv_id`) REFERENCES `a_cv` (`cv_id`);
 
 --
--- Constraints for table `b_cagtegory_subject`
+-- Constraints for table `b_jobcategory`
 --
-ALTER TABLE `b_cagtegory_subject`
-  ADD CONSTRAINT `b_cagtegory_subject_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `b_category` (`cat_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `b_cagtegory_subject_ibfk_2` FOREIGN KEY (`sub_id`) REFERENCES `b_subject` (`sub_id`) ON DELETE CASCADE;
+ALTER TABLE `b_jobcategory`
+  ADD CONSTRAINT `b_jobcategory_ibfk_1` FOREIGN KEY (`com_id`) REFERENCES `a_company` (`com_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `b_jobcategory_ibfk_2` FOREIGN KEY (`cat_id`) REFERENCES `b_category` (`cat_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `b_job`
+-- Constraints for table `b_jobs`
 --
-ALTER TABLE `b_job`
-  ADD CONSTRAINT `b_job_ibfk_1` FOREIGN KEY (`jcat_id`) REFERENCES `b_jobcagtegory` (`jcat_id`) ON DELETE CASCADE;
-
---
--- Constraints for table `b_jobcagtegory`
---
-ALTER TABLE `b_jobcagtegory`
-  ADD CONSTRAINT `b_jobcagtegory_ibfk_1` FOREIGN KEY (`com_id`) REFERENCES `a_company` (`com_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `b_jobcagtegory_ibfk_2` FOREIGN KEY (`cat_id`) REFERENCES `b_category` (`cat_id`) ON DELETE CASCADE;
+ALTER TABLE `b_jobs`
+  ADD CONSTRAINT `b_jobs_ibfk_1` FOREIGN KEY (`jcat_id`) REFERENCES `b_jobcategory` (`com_cat_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `b_percentage`
 --
 ALTER TABLE `b_percentage`
-  ADD CONSTRAINT `b_percentage_ibfk_1` FOREIGN KEY (`jcat_id`) REFERENCES `b_jobcagtegory` (`jcat_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `b_percentage_ibfk_1` FOREIGN KEY (`com_id`) REFERENCES `a_company` (`com_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `b_percentage_ibfk_2` FOREIGN KEY (`sub_id`) REFERENCES `b_subject` (`sub_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `b_subject`
+--
+ALTER TABLE `b_subject`
+  ADD CONSTRAINT `b_subject_ibfk_1` FOREIGN KEY (`cat_id`) REFERENCES `b_category` (`cat_id`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

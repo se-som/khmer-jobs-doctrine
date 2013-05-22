@@ -1,0 +1,15 @@
+
+<form method="post" action="<?php echo $this->url('home/action', array('action' => 'createSubjectForm')) ?>">
+    <fieldset>
+	<input type="text" name ="sub_name" placeholder="subject name…"> <br />
+        <select name="cat_id">
+		 <?php
+			foreach($category as $c) {
+				echo '<option value=' . $c->getCatId() . '>' . $c->getCatName(). '</option>';
+			}
+		 ?>
+	</select> <br />
+        <button type="submit" class="btn">Submit</button>
+    </fieldset>
+</form>
+

@@ -10,12 +10,13 @@
 foreach ($jobs as $job) {
     echo '<tr>';
 	echo'<td>'. $job->getJobTitle().'</td>'; 
+        echo'<td>'.($job->getJcat()->getJcatId()).'</td>';
 	echo'<td>'.($job->getJcat()->getCom()->getComName()).'</td>'; 
 	echo'<td>'.($job->getJcat()->getCat()->getCatName()).'</td>';
         echo'<td>'. $job->getJobDeadline().'</td>'; 
         echo'<td>'. $job->getJobDescription().'</td>'; 
-        echo '<td><a href="' . $this->url('home/action', array('action' => 'edit', 'id' => $job->getjobId())) . '" class="icon-pencil-2"></a></td>';
-        echo '<td><input class="url" type="hidden" value="'.$this->url('home',array('action'=>'delete','id'=>$job->getJobId())).' " />  <a href="delete/'.$job->getJobId().'" class="icon-remove deleteIcon"> </a> </td>';
+        echo '<td><a href="' . $this->url('home/action', array('action' => 'edit', 'id' =>$job->getJobId())) . '" class="icon-pencil-2"></a></td>';
+        echo '<td><input class="url" type="hidden" value="'.$this->url('home',array('action'=>'delete','id'=>$job->getJcat()->getJcatId())).' " />  <a href="delete/'.$job->getJcat()->getJcatId().'" class="icon-remove deleteIcon"> </a> </td>';
         
    echo '</tr>';
     }

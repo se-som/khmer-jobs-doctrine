@@ -43,9 +43,9 @@ class BJob
     private $jobDescription;
 
     /**
-     * @var \KJ\Entity\BJobcagtegory
+     * @var \KJ\Entity\BJobcategory
      *
-     * @ORM\ManyToOne(targetEntity="KJ\Entity\BJobcagtegory")
+     * @ORM\ManyToOne(targetEntity="KJ\Entity\BJobcategory")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="jcat_id", referencedColumnName="jcat_id")
      * })
@@ -136,10 +136,10 @@ class BJob
     /**
      * Set jcat
      *
-     * @param \KJ\Entity\BJobcagtegory $jcat
+     * @param \KJ\Entity\BJobcategory $jcat
      * @return BJob
      */
-    public function setJcat(\KJ\Entity\BJobcagtegory $jcat = null)
+    public function setJcat(\KJ\Entity\BJobcategory $jcat = null)
     {
         $this->jcat = $jcat;
     
@@ -149,7 +149,7 @@ class BJob
     /**
      * Get jcat
      *
-     * @return \KJ\Entity\BJobcagtegory 
+     * @return \KJ\Entity\BJobcategory 
      */
     public function getJcat()
     {

@@ -28,29 +28,7 @@ class BCategory
      */
     private $catName;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="KJ\Entity\BSubject", inversedBy="cat")
-     * @ORM\JoinTable(name="b_cagtegory_subject",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="cat_id", referencedColumnName="cat_id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="sub_id", referencedColumnName="sub_id")
-     *   }
-     * )
-     */
-    private $sub;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sub = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
 
     /**
      * Get catId
@@ -83,38 +61,5 @@ class BCategory
     public function getCatName()
     {
         return $this->catName;
-    }
-
-    /**
-     * Add sub
-     *
-     * @param \KJ\Entity\BSubject $sub
-     * @return BCategory
-     */
-    public function addSub(\KJ\Entity\BSubject $sub)
-    {
-        $this->sub[] = $sub;
-    
-        return $this;
-    }
-
-    /**
-     * Remove sub
-     *
-     * @param \KJ\Entity\BSubject $sub
-     */
-    public function removeSub(\KJ\Entity\BSubject $sub)
-    {
-        $this->sub->removeElement($sub);
-    }
-
-    /**
-     * Get sub
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSub()
-    {
-        return $this->sub;
     }
 }

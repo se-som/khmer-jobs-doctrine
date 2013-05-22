@@ -5,12 +5,12 @@ namespace KJ\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * BJobcagtegory
+ * BJobcategory
  *
- * @ORM\Table(name="b_jobcagtegory")
+ * @ORM\Table(name="b_jobcategory")
  * @ORM\Entity
  */
-class BJobcagtegory
+class BJobcategory
 {
     /**
      * @var integer
@@ -20,21 +20,6 @@ class BJobcagtegory
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $jcatId;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="KJ\Entity\BSubject", inversedBy="jcat")
-     * @ORM\JoinTable(name="b_percentage",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="jcat_id", referencedColumnName="jcat_id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="sub_id", referencedColumnName="sub_id")
-     *   }
-     * )
-     */
-    private $sub;
 
     /**
      * @var \KJ\Entity\ACompany
@@ -56,14 +41,7 @@ class BJobcagtegory
      */
     private $cat;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->sub = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+
 
     /**
      * Get jcatId
@@ -76,43 +54,10 @@ class BJobcagtegory
     }
 
     /**
-     * Add sub
-     *
-     * @param \KJ\Entity\BSubject $sub
-     * @return BJobcagtegory
-     */
-    public function addSub(\KJ\Entity\BSubject $sub)
-    {
-        $this->sub[] = $sub;
-    
-        return $this;
-    }
-
-    /**
-     * Remove sub
-     *
-     * @param \KJ\Entity\BSubject $sub
-     */
-    public function removeSub(\KJ\Entity\BSubject $sub)
-    {
-        $this->sub->removeElement($sub);
-    }
-
-    /**
-     * Get sub
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSub()
-    {
-        return $this->sub;
-    }
-
-    /**
      * Set com
      *
      * @param \KJ\Entity\ACompany $com
-     * @return BJobcagtegory
+     * @return BJobcategory
      */
     public function setCom(\KJ\Entity\ACompany $com = null)
     {
@@ -135,7 +80,7 @@ class BJobcagtegory
      * Set cat
      *
      * @param \KJ\Entity\BCategory $cat
-     * @return BJobcagtegory
+     * @return BJobcategory
      */
     public function setCat(\KJ\Entity\BCategory $cat = null)
     {

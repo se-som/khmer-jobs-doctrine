@@ -6,7 +6,7 @@
 	<input type="text" name="job_deadline"class="datepicker" placeholder="job deadline" value=" <?php echo $job->getJobDeadline() ?> "><br />
 	<input type="text" name ="job_title" value="<?php echo $job->getJobTitle()?> "> <br />
 	<textarea rows="3" name="job_description" value="<?php echo $job->getJobDescription() ?> "></textarea> <br />
-        <input type="hidden" name="jcat_id" value="<?php $job->getJcat() ?>">
+    
         <button type="submit" class="btn"><?php echo $submitText ?></button>
     </fieldset>
    
