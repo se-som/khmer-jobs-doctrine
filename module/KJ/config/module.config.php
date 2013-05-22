@@ -26,7 +26,7 @@ return array(
 					'action' => array(
 						'type' => 'Zend\Mvc\Router\Http\Segment',
 						'options' => array(
-							'route' => '[:action[/]]',
+							'route' => '[:action[/[:id]]]',
 							'constraints' => array(
 								'action' => '[a-zA-Z0-9_-]+',
 								'entity' => '[a-zA-Z0-9_-]+',

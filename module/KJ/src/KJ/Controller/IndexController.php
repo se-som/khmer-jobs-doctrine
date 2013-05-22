@@ -8,14 +8,7 @@ use Zend\View\Model\ViewModel;
 class IndexController extends AbstractActionController {
 
 	public function indexAction() {
-		return new ViewModel();
-	}
-
-	
-        public function showJobAction(){
-		
 		$jobs = $this->getEntityManager()->getRepository('\KJ\Entity\BJob')->findAll();
-		
 		return new ViewModel(array(
 			'jobs' => $jobs
 		));
@@ -26,13 +19,10 @@ class IndexController extends AbstractActionController {
 				'categories' => $this->getEntityManager()->getRepository('\KJ\Entity\BCategory')->findAll(),
 		));
 	}
-
         public function createJobByFormAction(){
 		$post = $this->getRequest()->getPost();
-		
 		$company = $this->getEntityManager()->find('\KJ\Entity\ACompany', $post->com_id);
 		$category = $this->getEntityManager()->find('\KJ\Entity\BCategory', $post->cat_id);
-		
 		$jcat = new \KJ\Entity\BJobCagtegory();
 		$jcat->setCat($category);
 		$jcat->setCom($company);
@@ -41,31 +31,69 @@ class IndexController extends AbstractActionController {
                 $job->setJobDeadline($post->job_deadline);
 		$job->setJobDescription($post->job_description);		
 		$job->setJcat($jcat);
-                
 		$this->getEntityManager()->persist($jcat);           
 		$this->getEntityManager()->persist($job);
 		$this->getEntityManager()->flush();
-              
-                return $this->redirect()->toRoute('home/action', array(
-                    'action' => 'showjob'
-                ));             			
+          //      $this->flashMessenger()->addMessage('<div class="alert alert-success">Success</div>');
+                return $this->redirect()->toRoute('home');             			
 	}
-        public function deletejobAction()
-    {
-            echo 'ddd';
-        $post = $this->getEntityManager()->getRepository('KJ\Entity\Bjob')->find($this->params('job_id'));
-        var_dump($post);
-        if ($post) {
-            $em = $this->getEntityManager();
-            $em->remove($post);
-            $em->flush();
-            $this->flashMessenger()->addSuccessMessage('Post Deleted');
-        }
 
-        return $this->redirect()->toRoute('post');
-    }
-        
-        
+  public function deleteAction() {
+		$id = $this->params('id');
+		$job = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->find('\KJ\Entity\Bjob', $id);
+                
+		if(null == $job){
+			$this->redirect()->toRoute('home', array('controller' => 'job', 'action' => 'index'));
+		}
+
+		$em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+		$em->remove($job);
+		$em->flush();
+		return $this->redirect()->toRoute('home', array('controller' => 'job', 'action' => 'index'));
+	}
+        public function updateAction() {
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$postData = (array) $request->getPost();
+			
+			$id = $postData['job_id'];
+			$job = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->find('\KJ\Entity\Bjob', $id);
+                        var_dump($job);
+			if(null == $job){
+                         
+				$this->redirect()->toRoute('home/action', array('action' => 'index'));
+			}
+		
+			if (isset($postData['job'])) {
+                            echo 'dddddddd';
+				$job->setJobId($postData['job']);
+                                $job->setJobDeadline($postData['job']);
+                                $job->setJobTitle($postData['job']);
+                                $job->setJobDescription($postData['job']);
+                                $job->setJcatId($postData['job']);
+				$em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+				$em->persist($job);
+				$em->flush();
+
+				$this->flashMessenger()->addMessage('<div class="alert alert-success">Success</div>');
+				$this->redirect()->toRoute('home');
+			}
+		}
+	
+        }
+        public function editAction() {
+		$id = $this->params('id');
+		$job = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->find('\KJ\Entity\Bjob', $id);
+		
+		if(null == $job){
+			$this->redirect()->toRoute('home/action', array('action' => 'index'));
+		}
+		
+		return new ViewModel(array(
+			'job' => $job,
+			'submitText' => 'Update',
+		));
+	}
         
         
         
