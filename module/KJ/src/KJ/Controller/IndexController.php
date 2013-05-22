@@ -17,11 +17,14 @@ class IndexController extends AbstractActionController {
 	}
         public function createJobByFormAction(){
 		$post = $this->getRequest()->getPost();
+                
 		$company = $this->getEntityManager()->find('\KJ\Entity\ACompany', $post->com_id);
 		$category = $this->getEntityManager()->find('\KJ\Entity\BCategory', $post->cat_id); 
+                
 		$jcat = new \KJ\Entity\BJobCategory();
 		$jcat->setCat($category);
 		$jcat->setCom($company);
+                
 		$job = new \KJ\Entity\BJob();
 		$job->setJobTitle($post->job_title);
                 $job->setJobDeadline($post->job_deadline);
@@ -104,19 +107,19 @@ class IndexController extends AbstractActionController {
 		));
 	}
         public function createSubjectFormAction(){
-            $post = $this->getRequest()->getPost();
+            $post = $this->getRequest()->getPost();       
+            $sub = new \KJ\Entity\BSubject();
+            $sub->setSubName($post->sub_name);	     
+            $this->getEntityManager()->persist($sub);
+            $this->getEntityManager()->flush();  
+            
             $subject = $this->getEntityManager()->find('\KJ\Entity\BSubject', $post->sub_id);
             $category = $this->getEntityManager()->find('\KJ\Entity\BCategory', $post->cat_id); 
-
             $catsub = new \KJ\Entity\BCatsubject();
             $catsub->setCat($category);
-            $catsub->setSub($subject);
-            
-            $sub = new \KJ\Entity\BSubject();
-            $sub->setSubName($post->sub_name);	
-            
-            $this->getEntityManager()->persist($sub);
+            $catsub->setSub($subject);           
             $this->getEntityManager()->persist($catsub);
+            
             $this->getEntityManager()->flush();       
             return $this->redirect()->toRoute('home');           			
 	}
