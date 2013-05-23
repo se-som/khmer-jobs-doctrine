@@ -1,6 +1,11 @@
+<?php 
+    $com_id =211;
+?>
+
 <form method="post" action="<?php echo $this->url('home/action', array('action' => 'createJobByForm')) ?>">
     <fieldset>
-	<input type="text" name ="com_id" placeholder="company id…"> <br />
+        <input type="hidden" name ="com_id" placeholder="company id…" value="<?php echo $com_id;  ?>"> <br />      
+        <input type="text" name ="job_title" placeholder="job title…"> <br />
 	<select name="cat_id">
 		 <?php
 			foreach($categories as $c) {
@@ -8,9 +13,13 @@
 			}
 		 ?>
 	</select> <br />
+        <input type="text" name ="job_location" placeholder="job location…"> <br />
+        <input type="text" name ="job_salary" placeholder="salary…"> <br />
 	<input type="text" name="job_deadline"class="datepicker" placeholder="job deadline"><br />
-	<input type="text" name ="job_title" placeholder="job title…"> <br />
+	<input type="text" name ="job_benefit" placeholder="benefit…"> <br />
+        <input type="text" name ="about_company" placeholder="About your company…"> <br />
 	<textarea rows="3" name="job_description" placeholder="job description…"></textarea> <br />
+        <textarea rows="3" name="job_apply" placeholder="how apply…"></textarea> <br />
         <button type="submit" class="btn">Submit</button>
     </fieldset>
 </form>

@@ -1,0 +1,11 @@
+<form method="post" action="<?php echo $this->url('home/action', array('action' => 'UpdateCompany')) ?>">   
+    <fieldset>       
+        <input type="hidden" name="com_id" value="<?php echo $com->getComId(); ?>" />  
+        <input type="text" name ="com_name" value="<?php echo $com->getComName()?> "> <br />
+	<input type="text" name="com_location" value=" <?php echo $com->getComLocation() ?> "><br />	
+        <input type="text" name ="com_phone" value="<?php echo $com->getComPhone(); ?>"> <br />
+        <input type="text" name ="com_email" value="<?php echo $com->getComEmail(); ?>"> <br />
+        <input type="text" name ="com_web" value="<?php echo $com->getComWeb(); ?>"> <br />   
+        <button type="submit" class="btn"><?php echo $submitText ?></button>
+    </fieldset>
+</form>

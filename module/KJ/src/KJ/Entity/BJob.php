@@ -31,6 +31,20 @@ class BJob
     /**
      * @var string
      *
+     * @ORM\Column(name="job_salary", type="string", length=100, nullable=true)
+     */
+    private $jobSalary;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="job_location", type="string", length=250, nullable=false)
+     */
+    private $jobLocation;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="job_deadline", type="string", length=250, nullable=false)
      */
     private $jobDeadline;
@@ -38,9 +52,30 @@ class BJob
     /**
      * @var string
      *
+     * @ORM\Column(name="job_benefit", type="string", length=250, nullable=true)
+     */
+    private $jobBenefit;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="job_description", type="text", nullable=true)
      */
     private $jobDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="about_company", type="string", length=250, nullable=true)
+     */
+    private $aboutCompany;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="job_apply", type="string", length=250, nullable=false)
+     */
+    private $jobApply;
 
     /**
      * @var \KJ\Entity\BJobcategory
@@ -88,6 +123,52 @@ class BJob
     }
 
     /**
+     * Set jobSalary
+     *
+     * @param string $jobSalary
+     * @return BJob
+     */
+    public function setJobSalary($jobSalary)
+    {
+        $this->jobSalary = $jobSalary;
+    
+        return $this;
+    }
+
+    /**
+     * Get jobSalary
+     *
+     * @return string 
+     */
+    public function getJobSalary()
+    {
+        return $this->jobSalary;
+    }
+
+    /**
+     * Set jobLocation
+     *
+     * @param string $jobLocation
+     * @return BJob
+     */
+    public function setJobLocation($jobLocation)
+    {
+        $this->jobLocation = $jobLocation;
+    
+        return $this;
+    }
+
+    /**
+     * Get jobLocation
+     *
+     * @return string 
+     */
+    public function getJobLocation()
+    {
+        return $this->jobLocation;
+    }
+
+    /**
      * Set jobDeadline
      *
      * @param string $jobDeadline
@@ -111,6 +192,29 @@ class BJob
     }
 
     /**
+     * Set jobBenefit
+     *
+     * @param string $jobBenefit
+     * @return BJob
+     */
+    public function setJobBenefit($jobBenefit)
+    {
+        $this->jobBenefit = $jobBenefit;
+    
+        return $this;
+    }
+
+    /**
+     * Get jobBenefit
+     *
+     * @return string 
+     */
+    public function getJobBenefit()
+    {
+        return $this->jobBenefit;
+    }
+
+    /**
      * Set jobDescription
      *
      * @param string $jobDescription
@@ -131,6 +235,52 @@ class BJob
     public function getJobDescription()
     {
         return $this->jobDescription;
+    }
+
+    /**
+     * Set aboutCompany
+     *
+     * @param string $aboutCompany
+     * @return BJob
+     */
+    public function setAboutCompany($aboutCompany)
+    {
+        $this->aboutCompany = $aboutCompany;
+    
+        return $this;
+    }
+
+    /**
+     * Get aboutCompany
+     *
+     * @return string 
+     */
+    public function getAboutCompany()
+    {
+        return $this->aboutCompany;
+    }
+
+    /**
+     * Set jobApply
+     *
+     * @param string $jobApply
+     * @return BJob
+     */
+    public function setJobApply($jobApply)
+    {
+        $this->jobApply = $jobApply;
+    
+        return $this;
+    }
+
+    /**
+     * Get jobApply
+     *
+     * @return string 
+     */
+    public function getJobApply()
+    {
+        return $this->jobApply;
     }
 
     /**

@@ -4,22 +4,23 @@
         <th>job company</th>
         <th>job category</th>
         <th>job deadline</th>
-        <th>job description</th>
    </tr>
 <?php
-foreach ($jobs as $job) {
+$session_id = 211;
+foreach ($jobs as $job) { 
+   $com_id = $job->getJcat()->getCom()->getComId();
+   if($session_id == $com_id){
     echo '<tr>';
 	echo'<td>'. $job->getJobTitle().'</td>'; 
-        echo'<td>'.($job->getJcat()->getJcatId()).'</td>';
 	echo'<td>'.($job->getJcat()->getCom()->getComName()).'</td>'; 
 	echo'<td>'.($job->getJcat()->getCat()->getCatName()).'</td>';
         echo'<td>'. $job->getJobDeadline().'</td>'; 
-        echo'<td>'. $job->getJobDescription().'</td>'; 
         echo '<td><a href="' . $this->url('home/action', array('action' => 'edit', 'id' =>$job->getJobId())) . '" class="icon-pencil-2"></a></td>';
-        echo '<td><input class="url" type="hidden" value="'.$this->url('home',array('action'=>'delete','id'=>$job->getJcat()->getJcatId())).' " />  <a href="delete/'.$job->getJcat()->getJcatId().'" class="icon-remove deleteIcon"> </a> </td>';
-        
-   echo '</tr>';
-    }
+        echo '<td><input class="url" type="hidden" value="'.$this->url('home',array('action'=>'delete','id'=>$job->getJcat()->getJcatId())).' " />  <a href="delete/'.$job->getJcat()->getJcatId().'" class="icon-remove deleteIcon"> </a> </td>';       
+        echo '<td><a href= "'. $this->url('home/action', array('action'=> 'detail', 'id' =>$job->getJobId())) . ' ">detail</a></td>';
+        echo '</tr>';
+   }
+  }
 ?>
 </table>
 <script type="text/javascript">

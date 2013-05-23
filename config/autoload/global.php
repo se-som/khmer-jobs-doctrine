@@ -14,7 +14,7 @@
 return array(
 	'db' => array(
 		'driver' => 'Pdo',
-		'dsn' => 'mysql:dbname=kmer_job;host=localhost',
+		'dsn' => 'mysql:dbname=khmer_jobs;host=localhost',
 		'username' => 'root',
 		'password' => '',
 		'driver_options' => array(
@@ -36,7 +36,7 @@ return array(
                     'port'     => '3306',
                     'user'     => 'root',
                     'password' => '',
-                    'dbname'   => 'kmer_job',
+                    'dbname'   => 'khmer_jobs',
                 )
             )
         )

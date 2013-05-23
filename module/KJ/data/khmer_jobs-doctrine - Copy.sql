@@ -19,9 +19,14 @@ CREATE TABLE b_jobcategory (
 
 CREATE TABLE b_job (
 	job_id int(11) unsigned not null auto_increment,
-	job_title varchar(255) null default '',	
+	job_title varchar(255) default '',
+	job_salary varchar(100) default '',
+	job_location varchar(250) not null,
 	job_deadline varchar(250) not null,
-	job_description text default null,
+	job_benefit varchar(250) default '',
+	job_description text,
+	about_company varchar(250) default '',
+	job_apply varchar(250) not null,
 	jcat_id int(11) unsigned not null,
 	
 	FOREIGN KEY(jcat_id) REFERENCES b_jobcategory(jcat_id) ON DELETE CASCADE,
@@ -42,8 +47,7 @@ CREATE TABLE b_catsubject (
 	sub_id int(11) unsigned not null,
 	
 	FOREIGN KEY(cat_id) REFERENCES b_category(cat_id) ON DELETE CASCADE,
-	FOREIGN KEY(sub_id) REFERENCES b_subject(sub_id) ON DELETE CASCADE,
-	
+	FOREIGN KEY(sub_id) REFERENCES b_subject(sub_id) ON DELETE CASCADE,	
 	PRIMARY KEY (csub_id)
 )ENGINE=InnoDB;
 
