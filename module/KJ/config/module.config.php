@@ -35,8 +35,24 @@ return array(
 							),
 						),
 					),
+					
+					
 				),
 			),
+			   'jobs' => array(
+		'type' => 'Literal',
+		'options' => array(
+			'route' => '/jobs',
+			'defaults' => array(
+                             '__NAMESPACE__' => 'KJ\Controller',
+				'controller' => 'Job',
+				'action' => 'index',
+			),
+                ),
+			),
+			
+			
+			
 		),
 	),
 	'service_manager' => array(
@@ -56,9 +72,11 @@ return array(
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'index' => __NAMESPACE__ . '\Controller\IndexController'
+			'index' => __NAMESPACE__ . '\Controller\IndexController',
+			'KJ\Controller\Job' => '\KJ\Controller\JobController'
 		),
 	),
+		
 	'view_manager' => array(
 		'display_not_found_reason' => true,
 		'display_exceptions' => true,

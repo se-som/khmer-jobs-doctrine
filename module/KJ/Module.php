@@ -13,6 +13,13 @@ namespace KJ;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+use KJ\Model\Category;
+use KJ\Model\CategoryTable;
+
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+
+
 class Module {
 
 	public function onBootstrap(MvcEvent $e) {
@@ -32,6 +39,24 @@ class Module {
 				'namespaces' => array(
 					__NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
 				),
+			),
+		);
+	}
+	 public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'KJ\Model\CategoryTable' =>  function($sm) {
+                    $tableGateway = $sm->get('CategoryTableGateway');
+                    $table = new CategoryTable($tableGateway);
+                    return $table;
+                },
+                'CategoryTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    //$resultSetPrototype->setArrayObjectPrototype(new Category());
+                    return new TableGateway('B_category', $dbAdapter, null, $resultSetPrototype);
+                },
 			),
 		);
 	}

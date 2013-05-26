@@ -194,7 +194,7 @@ class IndexController extends AbstractActionController {
 				$this->flashMessenger()->addMessage('<div class="alert alert-success">Success</div>');
 				$this->redirect()->toRoute('home');
 			}
-                }
+           }
         }
 
         
