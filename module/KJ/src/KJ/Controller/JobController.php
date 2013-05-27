@@ -13,12 +13,17 @@ class JobController extends AbstractActionController {
 
 	public function indexAction() {
     
-    $ite = $this->getCategoryTable()->findAll();
-    
-    foreach ($ite as $item) {
-      var_dump($item);
-    }
+        $ite = $this->getCategoryTable()->findAll();
+        $user =$this->getCategoryTable()->findAll1();
+       
+         return new ViewModel(array(
+                'its' =>  $ite,
+                 'users' => $user
+               
+                  )
+                ); 
 	}
+        
 	public function getCategoryTable()
     {
         if (!$this->category) {
