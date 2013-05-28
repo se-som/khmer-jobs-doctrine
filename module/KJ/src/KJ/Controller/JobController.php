@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use KJ\Model\Category;
 
+
+
 class JobController extends AbstractActionController {
 
 	protected $category;
@@ -14,14 +16,15 @@ class JobController extends AbstractActionController {
 	public function indexAction() {
     
         $ite = $this->getCategoryTable()->findAll();
+
         $user =$this->getCategoryTable()->findAll1();
-       
+		
          return new ViewModel(array(
                 'its' =>  $ite,
                  'users' => $user
                
-                  )
-                ); 
+              )
+            ); 
 	}
         
 	public function getCategoryTable()

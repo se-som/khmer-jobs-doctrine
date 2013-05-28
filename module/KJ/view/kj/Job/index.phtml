@@ -1,22 +1,23 @@
-<table border ="1">
-    <?php foreach ($its as $it){
-               // var_dump($it);
-               echo '<tr>';
-                    echo '<th>'. $it->job_title.'</th>';
-               echo '</tr>';
-            }            
-      ?>
-    </table>
 
-<?php 
-      var_dump($users);
-      foreach ($users as $user) {
-          foreach ($user as $u){
-          var_dump($u);
-          }
-      }
-       
- ?>
+<table border ="1">
+	
+    <?php
+	foreach ($its as $it){
+			echo '<tr>';
+				echo '<th>'. $it->job_title.'</th>';
+				echo '<td>';
+					foreach ($users as $user){
+						echo $user->username;
+					}
+				echo '</td>';
+		
+			echo '</tr>';
+		
+	}
+      ?>
+</table>
+
+
     
 
 

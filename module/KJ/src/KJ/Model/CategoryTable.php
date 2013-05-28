@@ -29,7 +29,8 @@ class CategoryTable {
   }
   public function findAll1()
   {
-      return $this->tableGateway->getAdapter()->query('select * from jobs_users as b join a_jobs_jseeker as a on b.id = a.user_id	
+      return $this->tableGateway->getAdapter()->query('select * from a_jobs_jseeker as a  
+														join jobs_users as b on b.id = a.user_id	
                                                         join b_jobcategory as c on a.jcat_id = c.jcat_id
                                                         join a_company as d on d.com_id = c.com_id
                                                         where d.com_id = 211',          
