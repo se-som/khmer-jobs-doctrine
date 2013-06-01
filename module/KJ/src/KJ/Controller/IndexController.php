@@ -7,20 +7,27 @@
 namespace KJ\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use KJ\Model\Category;
 
 class IndexController extends AbstractActionController {
-	public function indexAction() {
-            
+    protected $category;
+    public function indexAction() {
+            $sess = isset($_GET['sess']) ? $_GET['sess'] : "";
 		$jobs = $this->getEntityManager()->getRepository('\KJ\Entity\BJob')->findAll();
+                $coms = $this->getCategoryTable()->findAll4($sess);               
                 return new ViewModel(array(
-			'jobs' => $jobs,                      
+			'jobs' => $jobs,  
+                        'com' => $coms
 		));
 	}
 // about job......
-        public function newJobAction(){				
+        public function newJobAction(){	
+                $sess = isset($_GET['sess']) ? $_GET['sess'] : "";
+               
 		return new ViewModel(array(
 				'categories' => $this->getEntityManager()->getRepository('\KJ\Entity\BCategory')->findAll(),
-		));
+                                'com' => $this->getCategoryTable()->findAll4($sess)
+                    ));
 	}
         public function createJobByFormAction(){
 		$post = $this->getRequest()->getPost();
@@ -36,7 +43,7 @@ class IndexController extends AbstractActionController {
 		$job = new \KJ\Entity\BJob();
 		$job->setJobTitle($post->job_title);
                 $job->setJobLocation($post->job_location);
-                $job->setJobDeadline($post->job_deadline);       
+                $job->setJobDeadline($post->job_deadline);      
                 $job->setJobBenefit($post->job_benefit);
                 $job->setJobSalary($post->job_salary); 
                 $job->setAboutCompany($post->about_company);
@@ -46,7 +53,7 @@ class IndexController extends AbstractActionController {
 		$this->getEntityManager()->persist($jcat);           
 		$this->getEntityManager()->persist($job);   
 		$this->getEntityManager()->flush();       
-                return $this->redirect()->toRoute('home');             			
+                return $this->redirect()->toRoute('home', array('controller' => 'index'));             			
 	}
         public function deleteAction() {
 		$id = $this->params('id');
@@ -196,6 +203,10 @@ class IndexController extends AbstractActionController {
 			}
            }
         }
+        public function pdfAction()
+        {
+            
+        }
 
         
 
@@ -219,6 +230,13 @@ class IndexController extends AbstractActionController {
 			$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 		}
 		return $this->em;
-	}      
+	} 
+        public function getCategoryTable(){
+            if (!$this->category) {
+                $sm = $this->getServiceLocator();
+                $this->category = $sm->get('KJ\Model\CategoryTable');
+            }
+            return $this->category;
+        }
 }
 
