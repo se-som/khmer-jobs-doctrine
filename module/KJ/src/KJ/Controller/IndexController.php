@@ -196,12 +196,17 @@ class IndexController extends AbstractActionController {
 			}
            }
         }
+		public function pdfAction(){
+			
+		}
+				
 
-        
 
 
 
-        /**
+
+
+		/**
 	 * Entity manager instance
 	 *           
 	 * @var Doctrine\ORM\EntityManager
