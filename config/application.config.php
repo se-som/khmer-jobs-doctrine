@@ -1,6 +1,7 @@
 <?php
 return array(
     'modules' => array(
+	'DOMPDFModule',
 		'DoctrineModule',
 		'DoctrineORMModule',
 		'KJ',

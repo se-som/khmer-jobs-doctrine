@@ -4,6 +4,7 @@ namespace KJ\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use DOMPDFModule\View\Model\PdfModel;
 use KJ\Model\Category;
 
 
@@ -15,16 +16,17 @@ class JobController extends AbstractActionController {
 
 	public function indexAction() {
     
-        $ite = $this->getCategoryTable()->findAll();
+         $pdf = new PdfModel();
+        $pdf->setOption('filename', 'monthly-report'); // Triggers PDF download, automatically appends ".pdf"
+        $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11"
+        $pdf->setOption('paperOrientation', 'landscape'); // Defaults to "portrait"
 
-        $user =$this->getCategoryTable()->findAll1();
-		
-         return new ViewModel(array(
-                'its' =>  $ite,
-                 'users' => $user
-               
-              )
-            ); 
+        // To set view variables
+        $pdf->setVariables(array(
+          'message' => 'Hello'
+        ));
+
+        return $pdf;
 	}
         
 	public function getCategoryTable()
@@ -34,6 +36,7 @@ class JobController extends AbstractActionController {
             $this->category = $sm->get('KJ\Model\CategoryTable');
         }
         return $this->category;
-    }	
+    }
+	
 }
 
